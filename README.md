@@ -1,3 +1,7 @@
+### :warning: This repository is no longer maintained  
+
+Please see the replacement repository: https://github.com/Apollo-AFCL/AFCLCore 
+
 # AFCLCore
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5d6a02b99a734dbdac52ee4403a84283)](https://www.codacy.com/gh/stefanpedratscher/AFCLCore/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=stefanpedratscher/AFCLCore&amp;utm_campaign=Badge_Grade)
