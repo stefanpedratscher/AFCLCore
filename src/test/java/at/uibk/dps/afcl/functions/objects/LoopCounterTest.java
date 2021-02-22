@@ -18,7 +18,7 @@ public class LoopCounterTest {
      */
     @Test
     public void testFullConstruction() {
-        LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
+        final LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
 
         Assert.assertEquals("name", loopCounter.getName());
         Assert.assertEquals("type", loopCounter.getType());
@@ -34,7 +34,7 @@ public class LoopCounterTest {
      */
     @Test
     public void testEmptyConstruction() {
-        LoopCounter loopCounter = new LoopCounter();
+        final LoopCounter loopCounter = new LoopCounter();
 
         Assert.assertNull(loopCounter.getName());
         Assert.assertNull(loopCounter.getType());
@@ -61,19 +61,19 @@ public class LoopCounterTest {
      */
     @Test
     public void testHashEquals() {
-        LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
+        final LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
 
         Assert.assertEquals(loopCounter, loopCounter);
         Assert.assertEquals(loopCounter.hashCode(), loopCounter.hashCode());
         Assert.assertNotEquals(loopCounter, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(loopCounter, compound);
 
-        LoopCounter loopCounter2 = new LoopCounter("name", "type", "0", "10");
+        final LoopCounter loopCounter2 = new LoopCounter("name", "type", "0", "10");
         Assert.assertEquals(loopCounter, loopCounter2);
         Assert.assertEquals(loopCounter.hashCode(), loopCounter2.hashCode());
-        loopCounter2.setAdditionalProperty("name", "type");
+        loopCounter2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(loopCounter, loopCounter2);
 
         LoopCounter loopCounter3;

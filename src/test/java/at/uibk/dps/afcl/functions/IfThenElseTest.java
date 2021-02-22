@@ -30,10 +30,10 @@ public class IfThenElseTest {
                 new ACondition("1", "2", "=="),
                 new ACondition("1", "1", "=="))));
         final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 
-        IfThenElse ifThenElse = new IfThenElse("ifThenElse",
+        final IfThenElse ifThenElse = new IfThenElse("ifThenElse",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 condition,
                 new ArrayList<>(Arrays.asList(atomicFunction)),
@@ -53,9 +53,9 @@ public class IfThenElseTest {
         Assert.assertEquals(condition, ifThenElse.getCondition());
         Assert.assertEquals(condition.hashCode(), ifThenElse.getCondition().hashCode());
 
-        Assert.assertEquals(1, ifThenElse.getThen().size());
-        Assert.assertEquals(atomicFunction, ifThenElse.getThen().get(0));
-        Assert.assertEquals(atomicFunction.hashCode(), ifThenElse.getThen().get(0).hashCode());
+        Assert.assertEquals(1, ifThenElse.getThenBranch().size());
+        Assert.assertEquals(atomicFunction, ifThenElse.getThenBranch().get(0));
+        Assert.assertEquals(atomicFunction.hashCode(), ifThenElse.getThenBranch().get(0).hashCode());
 
         Assert.assertEquals(0, atomicFunction.getAdditionalProperties().size());
     }
@@ -67,14 +67,14 @@ public class IfThenElseTest {
      */
     @Test
     public void testEmptyConstruction() {
-        IfThenElse ifThenElse = new IfThenElse();
+        final IfThenElse ifThenElse = new IfThenElse();
 
         Assert.assertNull(ifThenElse.getName());
         Assert.assertNull(ifThenElse.getDataIns());
         Assert.assertNull(ifThenElse.getDataOuts());
         Assert.assertNull(ifThenElse.getCondition());
-        Assert.assertNull(ifThenElse.getThen());
-        Assert.assertNull(ifThenElse.getElse());
+        Assert.assertNull(ifThenElse.getThenBranch());
+        Assert.assertNull(ifThenElse.getElseBranch());
         Assert.assertEquals(0, ifThenElse.getAdditionalProperties().size());
     }
 
@@ -95,19 +95,19 @@ public class IfThenElseTest {
      */
     @Test
     public void testHashEquals() {
-        IfThenElse ifThenElse1 = new IfThenElse("name", null, null, null, null, null);
+        final  IfThenElse ifThenElse1 = new IfThenElse("name", null, null, null, null, null);
         Assert.assertEquals(ifThenElse1, ifThenElse1);
         Assert.assertEquals(ifThenElse1.hashCode(), ifThenElse1.hashCode());
         Assert.assertNotEquals(ifThenElse1, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(ifThenElse1, compound);
 
-        IfThenElse ifThenElse2 = new IfThenElse("name", null, null, null, null, null);
+        final IfThenElse ifThenElse2 = new IfThenElse("name", null, null, null, null, null);
         Assert.assertEquals(ifThenElse1, ifThenElse2);
         Assert.assertEquals(ifThenElse1.hashCode(), ifThenElse2.hashCode());
 
-        ifThenElse2.setAdditionalProperty("name", "type");
+        ifThenElse2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(ifThenElse1, ifThenElse2);
 
         IfThenElse ifThenElse3;

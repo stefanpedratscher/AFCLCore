@@ -21,9 +21,9 @@ public class ConditionTest {
      */
     @Test
     public void testFullConstruction() {
-        ACondition aCondition = new ACondition("1", "2", "==");
+        final ACondition aCondition = new ACondition("1", "2", "==");
 
-        Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
+        final Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
 
         Assert.assertEquals("AND", condition.getCombinedWith());
 
@@ -41,7 +41,7 @@ public class ConditionTest {
      */
     @Test
     public void testEmptyConstruction() {
-        Condition condition = new Condition();
+        final Condition condition = new Condition();
 
         Assert.assertNull(condition.getCombinedWith());
         Assert.assertNull(condition.getConditions());
@@ -65,21 +65,21 @@ public class ConditionTest {
      */
     @Test
     public void testHashEquals() {
-        ACondition aCondition = new ACondition("1", "2", "==");
+        final ACondition aCondition = new ACondition("1", "2", "==");
 
-        Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
+        final Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
 
         Assert.assertEquals(condition, condition);
         Assert.assertEquals(condition.hashCode(), condition.hashCode());
         Assert.assertNotEquals(condition, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(condition, compound);
 
-        Condition condition2 = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
+        final Condition condition2 = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
         Assert.assertEquals(condition, condition2);
         Assert.assertEquals(condition.hashCode(), condition2.hashCode());
-        condition2.setAdditionalProperty("name", "type");
+        condition2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(condition, condition2);
 
         Condition condition3;

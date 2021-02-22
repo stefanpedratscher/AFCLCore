@@ -30,13 +30,13 @@ public class DataLoops {
      * Unique identifier for the data input port
      */
     @JsonProperty("name")
-    private String dataLoopName;
+    private String name;
 
     /**
      * Indicates the data type of the data port
      */
     @JsonProperty("type")
-    private String dataLoopType;
+    private String type;
 
     /**
      * Represents the initial value of the variable
@@ -78,29 +78,33 @@ public class DataLoops {
     @JsonProperty("constraints")
     private List<PropertyConstraint> constraints;
 
-    public DataLoops() {
-    }
-
     /**
-     * Constructor for data input ports
-     *
-     * @param dataLoopName Unique identifier for the data input port
-     * @param dataLoopType Data type of the data port
+     * Default constructor.
      */
-    public DataLoops(String dataLoopName, String dataLoopType) {
-        this(dataLoopName, dataLoopType, null, null);
+    public DataLoops() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
      * Constructor for data input ports
      *
-     * @param dataLoopName   Unique identifier for the data input port
-     * @param dataLoopType   Data type of the data port
+     * @param name Unique identifier for the data input port
+     * @param type Data type of the data port
+     */
+    public DataLoops(final String name, final String type) {
+        this(name, type, null, null);
+    }
+
+    /**
+     * Constructor for data input ports
+     *
+     * @param name   Unique identifier for the data input port
+     * @param type   Data type of the data port
      * @param initSource Specifies where the data comes from
      */
-    public DataLoops(String dataLoopName, String dataLoopType, String initSource, String loopSource) {
-        this.dataLoopName = dataLoopName;
-        this.dataLoopType = dataLoopType;
+    public DataLoops(final String name, final String type, final String initSource, final String loopSource) {
+        this.name = name;
+        this.type = type;
         this.initSource = initSource;
         this.loopSource = loopSource;
     }
@@ -111,29 +115,29 @@ public class DataLoops {
 
     @JsonProperty("name")
     public String getName() {
-        return dataLoopName;
+        return name;
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
-        this.dataLoopName = name;
+    public void setName(final String name) {
+        this.name = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return dataLoopType;
+        return type;
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
-        this.dataLoopType = type;
+    public void setType(final String type) {
+        this.type = type;
     }
 
     @JsonProperty("loopSource")
     public String getLoopSource() { return loopSource; }
 
     @JsonProperty("loopSource")
-    public void setLoopSource(String loopSource) { this.loopSource = loopSource; }
+    public void setLoopSource(final String loopSource) { this.loopSource = loopSource; }
 
     @JsonProperty("initSource")
     public String getInitSource() {
@@ -141,7 +145,7 @@ public class DataLoops {
     }
 
     @JsonProperty("initSource")
-    public void setInitSource(String initSource) {
+    public void setInitSource(final String initSource) {
         this.initSource = initSource;
     }
 
@@ -151,7 +155,7 @@ public class DataLoops {
     }
 
     @JsonProperty("value")
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
 
@@ -161,7 +165,7 @@ public class DataLoops {
     }
 
     @JsonProperty("passing")
-    public void setPassing(Boolean passing) {
+    public void setPassing(final Boolean passing) {
         this.passing = passing;
     }
 
@@ -171,7 +175,7 @@ public class DataLoops {
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
+    public void setProperties(final List<PropertyConstraint> properties) {
         this.properties = properties;
     }
 
@@ -181,21 +185,21 @@ public class DataLoops {
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
+    public void setConstraints(final List<PropertyConstraint> constraints) {
         this.constraints = constraints;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DataLoops dataLoops = (DataLoops) o;
-        return Objects.equals(dataLoopName, dataLoops.dataLoopName) &&
-                Objects.equals(dataLoopType, dataLoops.dataLoopType) &&
+        final DataLoops dataLoops = (DataLoops) object;
+        return Objects.equals(name, dataLoops.name) &&
+                Objects.equals(type, dataLoops.type) &&
                 Objects.equals(initSource, dataLoops.initSource) &&
                 Objects.equals(loopSource, dataLoops.loopSource) &&
                 Objects.equals(value, dataLoops.value) &&
@@ -206,6 +210,6 @@ public class DataLoops {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dataLoopName, dataLoopType, initSource, loopSource, value, passing, properties, constraints);
+        return Objects.hash(name, type, initSource, loopSource, value, passing, properties, constraints);
     }
 }

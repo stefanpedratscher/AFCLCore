@@ -6,9 +6,7 @@ import at.uibk.dps.afcl.functions.objects.DataIns;
 import at.uibk.dps.afcl.functions.objects.DataOuts;
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -32,13 +30,11 @@ public class Sequence extends Compound {
     @JsonProperty("sequenceBody")
     private List<Function> sequenceBody;
 
-    @JsonIgnore
-    private Map<String, Object> additionalPropertiesSequence = new HashMap<>();
-
     /**
      * Empty constructor for sequence construct.
      */
     public Sequence() {
+        super();
     }
 
     /**
@@ -49,7 +45,8 @@ public class Sequence extends Compound {
      * @param sequenceBody List of {@link Function}s to be executed sequentially
      * @param dataOuts     Data output ports ({@link DataOuts})
      */
-    public Sequence(String name, List<DataIns> dataIns, List<Function> sequenceBody, List<DataOuts> dataOuts) {
+    public Sequence(final String name, final List<DataIns> dataIns, final List<Function> sequenceBody, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.sequenceBody = sequenceBody;
@@ -66,38 +63,28 @@ public class Sequence extends Compound {
     }
 
     @JsonProperty("sequenceBody")
-    public void setSequenceBody(List<Function> sequenceBody) {
+    public void setSequenceBody(final List<Function> sequenceBody) {
         this.sequenceBody = sequenceBody;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesSequence;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesSequence.put(name, value);
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        Sequence sequence = (Sequence) o;
+        final Sequence sequence = (Sequence) object;
         return Objects.equals(sequenceBody, sequence.sequenceBody) &&
-                Objects.equals(additionalPropertiesSequence, sequence.additionalPropertiesSequence);
+                Objects.equals(getAdditionalProperties(), sequence.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), sequenceBody, additionalPropertiesSequence);
+        return Objects.hash(super.hashCode(), sequenceBody, getAdditionalProperties());
     }
 }

@@ -5,9 +5,9 @@ import at.uibk.dps.afcl.Function;
 import at.uibk.dps.afcl.functions.Parallel;
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -25,12 +25,19 @@ public class Section {
      * List of {@link Function}s within one section
      */
     @JsonProperty("section")
-    private List<Function> sectionBody;
+    private List<Function> section;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesSection = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
+    /**
+     * Default constructor.
+     */
     public Section() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -38,8 +45,8 @@ public class Section {
      *
      * @param section List of {@link Function}s within one section
      */
-    public Section(List<Function> section) {
-        this.sectionBody = section;
+    public Section(final List<Function> section) {
+        this.section = section;
     }
 
     /**
@@ -48,39 +55,45 @@ public class Section {
 
     @JsonProperty("section")
     public List<Function> getSection() {
-        return sectionBody;
+        return section;
     }
 
     @JsonProperty("section")
-    public void setSection(List<Function> section) {
-        this.sectionBody = section;
+    public void setSection(final List<Function> section) {
+        this.section = section;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesSection;
+        return this.additionalProperties;
     }
 
+    /**
+     * Set specific property.
+     *
+     * @param name of the property.
+     * @param value of the property.
+     */
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesSection.put(name, value);
+    public void setAdditionalProperties(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Section section = (Section) o;
-        return Objects.equals(sectionBody, section.sectionBody) &&
-                Objects.equals(additionalPropertiesSection, section.additionalPropertiesSection);
+        final Section section = (Section) object;
+        return Objects.equals(this.section, section.section) &&
+                Objects.equals(additionalProperties, section.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sectionBody, additionalPropertiesSection);
+        return Objects.hash(section, additionalProperties);
     }
 }

@@ -6,9 +6,7 @@ import at.uibk.dps.afcl.functions.objects.DataOuts;
 import at.uibk.dps.afcl.functions.objects.Section;
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -33,10 +31,11 @@ public class Parallel extends Compound {
     @JsonProperty("parallelBody")
     private List<Section> parallelBody;
 
-    @JsonIgnore
-    private Map<String, Object> additionalPropertiesParallel = new HashMap<>();
-
+    /**
+     * Default constructor.
+     */
     public Parallel() {
+        super();
     }
 
     /**
@@ -47,7 +46,8 @@ public class Parallel extends Compound {
      * @param parallelBody sections which can run in parallel
      * @param dataOuts     Data output ports ({@link DataOuts})
      */
-    public Parallel(String name, List<DataIns> dataIns, List<Section> parallelBody, List<DataOuts> dataOuts) {
+    public Parallel(final String name, final List<DataIns> dataIns, final List<Section> parallelBody, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.parallelBody = parallelBody;
@@ -64,38 +64,28 @@ public class Parallel extends Compound {
     }
 
     @JsonProperty("parallelBody")
-    public void setParallelBody(List<Section> parallelBody) {
+    public void setParallelBody(final List<Section> parallelBody) {
         this.parallelBody = parallelBody;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesParallel;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesParallel.put(name, value);
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        Parallel parallel = (Parallel) o;
+        final Parallel parallel = (Parallel) object;
         return Objects.equals(parallelBody, parallel.parallelBody) &&
-                Objects.equals(additionalPropertiesParallel, parallel.additionalPropertiesParallel);
+                Objects.equals(getAdditionalProperties(), parallel.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), parallelBody, additionalPropertiesParallel);
+        return Objects.hash(super.hashCode(), parallelBody, getAdditionalProperties());
     }
 }

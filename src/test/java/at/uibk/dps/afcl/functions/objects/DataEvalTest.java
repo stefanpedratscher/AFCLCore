@@ -18,7 +18,7 @@ public class DataEvalTest {
      */
     @Test
     public void testFullConstruction() {
-        DataEval dataEval = new DataEval("name", "type");
+        final DataEval dataEval = new DataEval("name", "type");
 
         Assert.assertEquals("name", dataEval.getName());
         Assert.assertEquals("type", dataEval.getType());
@@ -32,7 +32,7 @@ public class DataEvalTest {
      */
     @Test
     public void testEmptyConstruction() {
-        DataEval dataEval = new DataEval();
+        final DataEval dataEval = new DataEval();
 
         Assert.assertNull(dataEval.getName());
         Assert.assertNull(dataEval.getType());
@@ -57,19 +57,19 @@ public class DataEvalTest {
      */
     @Test
     public void testHashEquals() {
-        DataEval dataEval = new DataEval("name", "type");
+        final DataEval dataEval = new DataEval("name", "type");
 
         Assert.assertEquals(dataEval, dataEval);
         Assert.assertEquals(dataEval.hashCode(), dataEval.hashCode());
         Assert.assertNotEquals(dataEval, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(dataEval, compound);
 
-        DataEval dataEval2 = new DataEval("name", "type");
+        final DataEval dataEval2 = new DataEval("name", "type");
         Assert.assertEquals(dataEval, dataEval2);
         Assert.assertEquals(dataEval.hashCode(), dataEval2.hashCode());
-        dataEval2.setAdditionalProperty("name", "type");
+        dataEval2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(dataEval, dataEval2);
 
         DataEval dataEval3;

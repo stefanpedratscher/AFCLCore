@@ -28,54 +28,58 @@ public class DataOutsAtomic {
      * Unique identifier for the data output port
      */
     @JsonProperty("name")
-    private String atomicOutputName;
+    private String name;
 
     /**
      * Indicates the data type of the data port
      */
     @JsonProperty("type")
-    private String atomicOutputType;
+    private String type;
 
     /**
      * To specify the output of the data output
      * port
      */
     @JsonProperty("saveto")
-    private String atomicOutputSaveTo;
+    private String saveto;
 
     /**
      * Tells whether value will be passed to other
      * function
      */
     @JsonProperty("passing")
-    private Boolean passingDataOutsAtomic;
+    private Boolean passing;
 
     /**
      * {@link PropertyConstraint} (information about the
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesDataOutsAtomic;
+    private List<PropertyConstraint> properties;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsDataOutsAtomic;
+    private List<PropertyConstraint> constraints;
 
+    /**
+     * Default constructor.
+     */
     public DataOutsAtomic() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
      * Constructor for data output port of atomic function
      *
-     * @param atomicOutputName Unique identifier for the data output port
-     * @param atomicOutputType Data type of the data port
+     * @param name Unique identifier for the data output port
+     * @param type Data type of the data port
      */
-    public DataOutsAtomic(String atomicOutputName, String atomicOutputType) {
-        this.atomicOutputName = atomicOutputName;
-        this.atomicOutputType = atomicOutputType;
+    public DataOutsAtomic(final String name, final String type) {
+        this.name = name;
+        this.type = type;
     }
 
     /**
@@ -84,83 +88,83 @@ public class DataOutsAtomic {
 
     @JsonProperty("name")
     public String getName() {
-        return atomicOutputName;
+        return name;
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
-        this.atomicOutputName = name;
+    public void setName(final String name) {
+        this.name = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return atomicOutputType;
+        return type;
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
-        this.atomicOutputType = type;
+    public void setType(final String type) {
+        this.type = type;
     }
 
     @JsonProperty("saveto")
     public String getSaveto() {
-        return atomicOutputSaveTo;
+        return saveto;
     }
 
     @JsonProperty("saveto")
-    public void setSaveto(String saveto) {
-        this.atomicOutputSaveTo = saveto;
+    public void setSaveto(final String saveto) {
+        this.saveto = saveto;
     }
 
     @JsonProperty("passing")
     public Boolean getPassing() {
-        return passingDataOutsAtomic;
+        return passing;
     }
 
     @JsonProperty("passing")
-    public void setPassing(Boolean passing) {
-        this.passingDataOutsAtomic = passing;
+    public void setPassing(final Boolean passing) {
+        this.passing = passing;
     }
 
     @JsonProperty("properties")
     public List<PropertyConstraint> getProperties() {
-        return propertiesDataOutsAtomic;
+        return properties;
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.propertiesDataOutsAtomic = properties;
+    public void setProperties(final List<PropertyConstraint> properties) {
+        this.properties = properties;
     }
 
     @JsonProperty("constraints")
     public List<PropertyConstraint> getConstraints() {
-        return constraintsDataOutsAtomic;
+        return constraints;
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraintsDataOutsAtomic = constraints;
+    public void setConstraints(final List<PropertyConstraint> constraints) {
+        this.constraints = constraints;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DataOutsAtomic that = (DataOutsAtomic) o;
-        return Objects.equals(atomicOutputName, that.atomicOutputName) &&
-                Objects.equals(atomicOutputType, that.atomicOutputType) &&
-                Objects.equals(atomicOutputSaveTo, that.atomicOutputSaveTo) &&
-                Objects.equals(passingDataOutsAtomic, that.passingDataOutsAtomic) &&
-                Objects.equals(propertiesDataOutsAtomic, that.propertiesDataOutsAtomic) &&
-                Objects.equals(constraintsDataOutsAtomic, that.constraintsDataOutsAtomic);
+        final DataOutsAtomic that = (DataOutsAtomic) object;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(saveto, that.saveto) &&
+                Objects.equals(passing, that.passing) &&
+                Objects.equals(properties, that.properties) &&
+                Objects.equals(constraints, that.constraints);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(atomicOutputName, atomicOutputType, atomicOutputSaveTo, passingDataOutsAtomic, propertiesDataOutsAtomic, constraintsDataOutsAtomic);
+        return Objects.hash(name, type, saveto, passing, properties, constraints);
     }
 }

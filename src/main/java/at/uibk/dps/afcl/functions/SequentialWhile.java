@@ -31,15 +31,19 @@ public class SequentialWhile extends LoopCompound {
      * Contains needed information about potential loop data flow
      */
     @JsonProperty("dataLoops")
-    private List<DataLoops> dataLoopsSequentialWhile;
+    private List<DataLoops> dataLoops;
 
     /**
      * Contains needed information about the number of (sequential) loop iterations
      */
     @JsonProperty("condition")
-    private Condition conditionSequentialWhile;
+    private Condition condition;
 
+    /**
+     * Default constructor.
+     */
     public SequentialWhile() {
+        super();
     }
 
     /**
@@ -47,15 +51,18 @@ public class SequentialWhile extends LoopCompound {
      *
      * @param name        Unique identifier of the compound
      * @param dataIns     Data input ports ({@link DataIns})
-     * @param conditionSequentialWhile   while loop condition
-     * @param loopBodySequentialWhile    functions which should be executed in each iteration
+     * @param condition   while loop condition
+     * @param loopBodySequentialWhile    functions which should be
+     *                                   executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public SequentialWhile(String name, List<DataIns> dataIns, List<DataLoops> dataLoopsSequentialWhile, Condition conditionSequentialWhile, List<Function> loopBodySequentialWhile, List<DataOuts> dataOuts) {
+    public SequentialWhile(final String name, final List<DataIns> dataIns, final List<DataLoops> dataLoops, final Condition condition,
+                           final List<Function> loopBodySequentialWhile, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
-        this.dataLoopsSequentialWhile = dataLoopsSequentialWhile;
-        this.conditionSequentialWhile = conditionSequentialWhile;
+        this.dataLoops = dataLoops;
+        this.condition = condition;
         this.setLoopBody(loopBodySequentialWhile);
         this.dataOuts = dataOuts;
     }
@@ -65,39 +72,39 @@ public class SequentialWhile extends LoopCompound {
      */
 
     @JsonProperty("dataLoops")
-    public List<DataLoops> getDataLoops() { return dataLoopsSequentialWhile; }
+    public List<DataLoops> getDataLoops() { return dataLoops; }
 
     @JsonProperty("dataLoops")
-    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoopsSequentialWhile = dataLoops; }
+    public void setDataLoops(final List<DataLoops> dataLoops) { this.dataLoops = dataLoops; }
 
     @JsonProperty("condition")
     public Condition getCondition() {
-        return conditionSequentialWhile;
+        return condition;
     }
 
     @JsonProperty("condition")
-    public void setCondition(Condition loopCounter) {
-        this.conditionSequentialWhile = loopCounter;
+    public void setCondition(final Condition loopCounter) {
+        this.condition = loopCounter;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        SequentialWhile that = (SequentialWhile) o;
-        return Objects.equals(dataLoopsSequentialWhile, that.dataLoopsSequentialWhile) &&
-                Objects.equals(conditionSequentialWhile, that.conditionSequentialWhile);
+        final SequentialWhile that = (SequentialWhile) object;
+        return Objects.equals(dataLoops, that.dataLoops) &&
+                Objects.equals(condition, that.condition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), dataLoopsSequentialWhile, conditionSequentialWhile);
+        return Objects.hash(super.hashCode(), dataLoops, condition);
     }
 }

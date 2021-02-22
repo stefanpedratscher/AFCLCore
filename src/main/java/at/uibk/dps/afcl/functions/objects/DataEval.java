@@ -4,8 +4,8 @@ package at.uibk.dps.afcl.functions.objects;
 import at.uibk.dps.afcl.functions.Switch;
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -24,38 +24,42 @@ public class DataEval {
      * Unique identifier for the data eval
      */
     @JsonProperty("name")
-    private String evaluatorName;
+    private String name;
 
     /**
      * Indicates the data type
      */
     @JsonProperty("type")
-    private String evaluatorType;
+    private String type;
 
     /**
      * Represents where the data comes from
      */
     @JsonProperty("source")
-    private String evaluatorSource;
+    private String source;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesEvaluator = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
      * Empty constructor for a data evaluation object.
      */
     public DataEval() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
      * Constructor for data eval
      *
-     * @param evaluatorName Unique identifier for the data eval
-     * @param evaluatorType Data type
+     * @param name Unique identifier for the data eval
+     * @param type Data type
      */
-    public DataEval(String evaluatorName, String evaluatorType) {
-        this.evaluatorName = evaluatorName;
-        this.evaluatorType = evaluatorType;
+    public DataEval(final String name, final String type) {
+        this.name = name;
+        this.type = type;
     }
 
     /**
@@ -64,61 +68,67 @@ public class DataEval {
 
     @JsonProperty("name")
     public String getName() {
-        return evaluatorName;
+        return name;
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
-        this.evaluatorName = name;
+    public void setName(final String name) {
+        this.name = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return evaluatorType;
+        return type;
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
-        this.evaluatorType = type;
+    public void setType(final String type) {
+        this.type = type;
     }
 
     @JsonProperty("source")
     public String getSource() {
-        return evaluatorSource;
+        return source;
     }
 
     @JsonProperty("source")
-    public void setSource(String source) {
-        this.evaluatorSource = source;
+    public void setSource(final String source) {
+        this.source = source;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesEvaluator;
+        return this.additionalProperties;
     }
 
+    /**
+     * Set specific property.
+     *
+     * @param name of the property.
+     * @param value of the property.
+     */
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesEvaluator.put(name, value);
+    public void setAdditionalProperties(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DataEval dataEval = (DataEval) o;
-        return Objects.equals(evaluatorName, dataEval.evaluatorName) &&
-                Objects.equals(evaluatorType, dataEval.evaluatorType) &&
-                Objects.equals(evaluatorSource, dataEval.evaluatorSource) &&
-                Objects.equals(additionalPropertiesEvaluator, dataEval.additionalPropertiesEvaluator);
+        final DataEval dataEval = (DataEval) object;
+        return Objects.equals(name, dataEval.name) &&
+                Objects.equals(type, dataEval.type) &&
+                Objects.equals(source, dataEval.source) &&
+                Objects.equals(additionalProperties, dataEval.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(evaluatorName, evaluatorType, evaluatorSource, additionalPropertiesEvaluator);
+        return Objects.hash(name, type, source, additionalProperties);
     }
 }

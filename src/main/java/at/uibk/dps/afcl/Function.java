@@ -1,13 +1,18 @@
 package at.uibk.dps.afcl;
 
-import at.uibk.dps.afcl.functions.*;
+import at.uibk.dps.afcl.functions.Switch;
+import at.uibk.dps.afcl.functions.AtomicFunction;
+import at.uibk.dps.afcl.functions.IfThenElse;
+import at.uibk.dps.afcl.functions.Parallel;
+import at.uibk.dps.afcl.functions.ParallelFor;
+import at.uibk.dps.afcl.functions.Sequence;
 import at.uibk.dps.afcl.functions.objects.PropertyConstraint;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Map;
 
 /**
  * This class describes an abstract function ({@link AtomicFunction} or
@@ -36,15 +41,20 @@ public class Function {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesFunction;
+    private List<PropertyConstraint> properties;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsFunction;
+    private List<PropertyConstraint> constraints;
 
+    /**
+     * Optional additional json properties.
+     */
+    @JsonIgnore
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
      * Getter and Setter
@@ -56,46 +66,62 @@ public class Function {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     @JsonProperty("properties")
     public List<PropertyConstraint> getProperties() {
-        return propertiesFunction;
+        return properties;
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> propertiesFunction) {
-        this.propertiesFunction = propertiesFunction;
+    public void setProperties(final List<PropertyConstraint> propertiesFunction) {
+        this.properties = propertiesFunction;
     }
 
     @JsonProperty("constraints")
     public List<PropertyConstraint> getConstraints() {
-        return constraintsFunction;
+        return constraints;
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraintsFunction) {
-        this.constraintsFunction = constraintsFunction;
+    public void setConstraints(final List<PropertyConstraint> constraintsFunction) {
+        this.constraints = constraintsFunction;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    /**
+     * Set specific property.
+     *
+     * @param name of the property.
+     * @param value of the property.
+     */
+    @JsonAnySetter
+    public void setAdditionalProperties(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Function function = (Function) o;
+        final Function function = (Function) object;
         return Objects.equals(name, function.name) &&
-                Objects.equals(propertiesFunction, function.propertiesFunction) &&
-                Objects.equals(constraintsFunction, function.constraintsFunction);
+                Objects.equals(properties, function.properties) &&
+                Objects.equals(constraints, function.constraints);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, propertiesFunction, constraintsFunction);
+        return Objects.hash(name, properties, constraints);
     }
 }

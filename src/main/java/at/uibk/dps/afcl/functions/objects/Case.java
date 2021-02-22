@@ -5,9 +5,9 @@ import at.uibk.dps.afcl.Function;
 import at.uibk.dps.afcl.functions.Switch;
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -23,7 +23,8 @@ import java.util.Objects;
 public class Case {
 
     /**
-     * If this value is equal to the one in {@link DataEval} the case will be executed.
+     * If this value is equal to the one in
+     * {@link DataEval} the case will be executed.
      */
     @JsonProperty("value")
     private String value;
@@ -40,19 +41,27 @@ public class Case {
     @JsonProperty("functions")
     private List<Function> functions;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesCase = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
+    /**
+     * Default constructor.
+     */
     public Case() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
      * Constructor for case
      *
-     * @param value     If this value is equal to the one in {@link DataEval} the case will be executed.
+     * @param value     If this value is equal to the one in
+     *                  {@link DataEval} the case will be executed.
      * @param functions List of functions to be executed
      */
-    public Case(String value, List<Function> functions) {
+    public Case(final String value, final List<Function> functions) {
         this.value = value;
         this.functions = functions;
     }
@@ -67,17 +76,17 @@ public class Case {
     }
 
     @JsonProperty("value")
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
 
     @JsonProperty("break")
-    public String getBreak() {
+    public String getBreakCase() {
         return breakCase;
     }
 
     @JsonProperty("break")
-    public void setBreak(String breakCase) {
+    public void setBreakCase(final String breakCase) {
         this.breakCase = breakCase;
     }
 
@@ -87,37 +96,43 @@ public class Case {
     }
 
     @JsonProperty("functions")
-    public void setFunctions(List<Function> functions) {
+    public void setFunctions(final List<Function> functions) {
         this.functions = functions;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesCase;
+        return this.additionalProperties;
     }
 
+    /**
+     * Set specific property.
+     *
+     * @param name of the property.
+     * @param value of the property.
+     */
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesCase.put(name, value);
+    public void setAdditionalProperties(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Case aCase = (Case) o;
+        final Case aCase = (Case) object;
         return Objects.equals(value, aCase.value) &&
                 Objects.equals(breakCase, aCase.breakCase) &&
                 Objects.equals(functions, aCase.functions) &&
-                Objects.equals(additionalPropertiesCase, aCase.additionalPropertiesCase);
+                Objects.equals(additionalProperties, aCase.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, breakCase, functions, additionalPropertiesCase);
+        return Objects.hash(value, breakCase, functions, additionalProperties);
     }
 }

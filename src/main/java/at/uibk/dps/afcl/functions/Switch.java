@@ -8,9 +8,7 @@ import at.uibk.dps.afcl.functions.objects.DataIns;
 import at.uibk.dps.afcl.functions.objects.DataOuts;
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -49,10 +47,11 @@ public class Switch extends Compound {
     @JsonProperty("default")
     private List<Function> defaultBranch;
 
-    @JsonIgnore
-    private Map<String, Object> additionalPropertiesSwitch = new HashMap<>();
-
+    /**
+     * Default constructor.
+     */
     public Switch() {
+        super();
     }
 
     /**
@@ -64,7 +63,8 @@ public class Switch extends Compound {
      * @param cases    List of cases within the switch compound
      * @param dataOuts Data output ports ({@link DataOuts})
      */
-    public Switch(String name, List<DataIns> dataIns, DataEval dataEval, List<Case> cases, List<DataOuts> dataOuts) {
+    public Switch(final String name, final List<DataIns> dataIns, final DataEval dataEval, final List<Case> cases, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.dataEval = dataEval;
@@ -83,7 +83,7 @@ public class Switch extends Compound {
     }
 
     @JsonProperty("dataEval")
-    public void setDataEval(DataEval dataEval) {
+    public void setDataEval(final DataEval dataEval) {
         this.dataEval = dataEval;
     }
 
@@ -93,50 +93,40 @@ public class Switch extends Compound {
     }
 
     @JsonProperty("cases")
-    public void setCases(List<Case> cases) {
+    public void setCases(final List<Case> cases) {
         this.cases = cases;
     }
 
     @JsonProperty("default")
-    public List<Function> getDefault() {
+    public List<Function> getDefaultBranch() {
         return defaultBranch;
     }
 
     @JsonProperty("default")
-    public void setDefault(List<Function> defaultBranch) {
+    public void setDefaultBranch(final List<Function> defaultBranch) {
         this.defaultBranch = defaultBranch;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesSwitch;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesSwitch.put(name, value);
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        Switch aSwitch = (Switch) o;
+        final Switch aSwitch = (Switch) object;
         return Objects.equals(dataEval, aSwitch.dataEval) &&
                 Objects.equals(cases, aSwitch.cases) &&
                 Objects.equals(defaultBranch, aSwitch.defaultBranch) &&
-                Objects.equals(additionalPropertiesSwitch, aSwitch.additionalPropertiesSwitch);
+                Objects.equals(getAdditionalProperties(), aSwitch.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), dataEval, cases, defaultBranch, additionalPropertiesSwitch);
+        return Objects.hash(super.hashCode(), dataEval, cases, defaultBranch, getAdditionalProperties());
     }
 }
